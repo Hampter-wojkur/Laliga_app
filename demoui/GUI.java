@@ -10,9 +10,9 @@ public class GUI {
         JPanel jp = ui.getRootPanel();
         JFrame jf = new JFrame("Football stats");
 
-        jf.setLocationRelativeTo(null);
         jf.setContentPane(jp);
         jf.pack();
+        jf.setLocationRelativeTo(null);
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
