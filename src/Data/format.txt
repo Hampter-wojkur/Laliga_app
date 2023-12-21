@@ -1,0 +1,10 @@
+[
+id:
+username:
+password:
+] taki format
+[
+id:
+username:
+password:
+]
