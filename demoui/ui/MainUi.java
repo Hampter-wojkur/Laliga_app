@@ -18,7 +18,7 @@ public class MainUi {
     public JPanel getRootPanel(){
         return jp;
     }
-
+    // funckja w klasie MainUi bierze instancje api z klasy api, jako parametr w api funkcja get request
     private void createTable(){
         Object[][] data = {{"1", "Girona", "17", "14", "2", "1", "41:20", "21", "44"},
                 {"2", "Real Madrid", "17", "13", "3", "1", "38:11", "27", "42"}};

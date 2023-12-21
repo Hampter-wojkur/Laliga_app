@@ -1,14 +1,14 @@
 package demoui;
 
-import demoui.ui.MainUi;
+import demoui.ui.LogInUI;
 
 import javax.swing.*;
 
-public class GUI {
+public class StartGUI {
     public static void createGUI() {
-        MainUi ui = new MainUi();
+        LogInUI ui = new LogInUI();
         JPanel jp = ui.getRootPanel();
-        JFrame jf = new JFrame("Football stats");
+        JFrame jf = new JFrame("Log in");
 
         jf.setContentPane(jp);
         jf.pack();
@@ -17,7 +17,6 @@ public class GUI {
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -25,5 +24,4 @@ public class GUI {
             }
         });
     }
-
 }
