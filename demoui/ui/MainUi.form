@@ -44,7 +44,10 @@
                 <preferred-size width="200" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+              <toolTipText value=""/>
+            </properties>
           </component>
         </children>
       </grid>
