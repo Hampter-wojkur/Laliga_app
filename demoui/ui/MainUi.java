@@ -1,6 +1,7 @@
 package demoui.ui;
 
 import demoui.SignGUI;
+import demoui.StartGUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -74,8 +75,8 @@ public class MainUi {
                 JComponent comp = (JComponent) e.getSource();
                 Window win = SwingUtilities.getWindowAncestor(comp);
                 win.dispose();
-                SignGUI signGUI = new SignGUI();
-                signGUI.createGUI();
+                StartGUI startGUI = new StartGUI();
+                startGUI.createGUI();
             }
         });
     }
