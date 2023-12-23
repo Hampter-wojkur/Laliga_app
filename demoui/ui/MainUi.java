@@ -41,7 +41,7 @@ public class MainUi {
                 {"2", "Real Madrid", "17", "13", "3", "1", "38:11", "27", "42"}};
         table.setModel(new DefaultTableModel(
                 data,
-                new String[]{"#", "Team", "M", "W", "T", "L", "G", "GD", "PTS"}
+                new String[]{"#", "Team", "M", "W", "D", "L", "G", "GD", "PTS"}
         ));
         TableColumnModel columns = table.getColumnModel();
         columns.getColumn(0).setPreferredWidth(30);
