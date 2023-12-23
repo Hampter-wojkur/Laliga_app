@@ -1,10 +1,15 @@
 import login.Login;
+import signUp.SignUp;
 
 public class Test {
     public static void main(String args[]){
-        Login.setUsername("test"); // to handler
-        Login.setPassword("password"); // to handler
-        Login.initAccounts(); // this to thread
-        Login.processLogin(); // this to handler
+        SignUp.setUsername("wciemnychbarwach");
+        SignUp.setPassword("testt");
+        SignUp.setConfirmationPassword("testt");
+        SignUp.processSignUp();
+//        Login.initAccounts();
+//        Login.setUsername("tescidk");
+//        Login.setPassword("test");
+//        Login.processLogin();
     }
 }

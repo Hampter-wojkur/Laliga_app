@@ -6,8 +6,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class Login {
-//    private static final Logger logger =
     private static String username;
     private static String password;
 
@@ -39,8 +40,16 @@ public class Login {
             logger.error(errorMsg);
             return false;
         }
-        AccountsParser.printAllAccounts();
 
-        return true;
+        for(Account account : accounts){
+            if(account.getCredentials()[1].equals(username) && BCrypt.checkpw(password,account.getCredentials()[2])){
+                logger.info("Succesfully logged to service!");
+                return true;
+            }
+        }
+
+        errorMsg = "Wrong Credentials!";
+        logger.error(errorMsg);
+        return false;
     }
 }

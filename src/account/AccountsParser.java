@@ -24,7 +24,7 @@ public class AccountsParser{
         if(initStreams()) {
             String line;
             try {
-                ArrayList<Account> accountsList = new ArrayList<Account>();
+                ArrayList<Account> accountsList = new ArrayList<>();
                 while ((line = reader.readLine()) != null) {
                     if(line.equals("[")){
                         line = reader.readLine();
@@ -36,9 +36,9 @@ public class AccountsParser{
                         accountsList.add(new Account(id,login,hashedPassword));
                     }
                 }
+                closeStreams();
                 return accountsList;
             }
-
             catch (Exception e){
                 logger.error("Can't read file!");
                 return null;
@@ -56,6 +56,16 @@ public class AccountsParser{
         catch(Exception e){
             logger.error("Cannot init stream file!"+e);
             return false;
+        }
+    }
+
+    private static void closeStreams(){
+        try{
+            fileStream.close();
+            reader.close();
+        }
+        catch(Exception e){
+            logger.error("error closing streams "+ e);
         }
     }
 }
