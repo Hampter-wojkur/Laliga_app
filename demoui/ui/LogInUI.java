@@ -4,11 +4,14 @@ import com.sun.tools.javac.Main;
 import demoui.MainGUI;
 import demoui.SignGUI;
 import demoui.StartGUI;
+import org.json.JSONException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class LogInUI {
     private JPanel jp;
@@ -53,7 +56,11 @@ public class LogInUI {
                 Window win = SwingUtilities.getWindowAncestor(comp);
                 win.dispose();
                 MainGUI mainUi = new MainGUI();
-                mainUi.createGUI();
+                try {
+                    mainUi.createGUI();
+                } catch (JSONException | IOException | URISyntaxException | InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

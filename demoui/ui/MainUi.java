@@ -2,6 +2,7 @@ package demoui.ui;
 
 import demoui.SignGUI;
 import demoui.StartGUI;
+import org.json.JSONException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -13,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class MainUi {
     private JPanel jp;
@@ -26,8 +29,8 @@ public class MainUi {
     private JComboBox leagueCombo;
     private JButton logOutButton;
 
-    public MainUi(){
-        createTable();
+    public MainUi() throws JSONException, IOException, URISyntaxException, InterruptedException {
+        createTable("140");
         createComboBox();
         performLogOutButton();
         comboBoxClicked();
@@ -35,10 +38,11 @@ public class MainUi {
     public JPanel getRootPanel(){
         return jp;
     }
-    // funckja w klasie MainUi bierze instancje api z klasy api, jako parametr w api funkcja get request
-    private void createTable(){
-        Object[][] data = {{"1", "Girona", "17", "14", "2", "1", "41:20", "21", "44"},
-                {"2", "Real Madrid", "17", "13", "3", "1", "38:11", "27", "42"}};
+    private void createTable(String leagueId) throws JSONException, IOException, URISyntaxException, InterruptedException {
+
+        String[][] data = API.getTable(leagueId);
+//        Object[][] data = {{"1", "Girona", "17", "14", "2", "1", "41:20", "21", "44"},
+//                {"2", "Real Madrid", "17", "13", "3", "1", "38:11", "27", "42"}};
         table.setModel(new DefaultTableModel(
                 data,
                 new String[]{"#", "Team", "M", "W", "D", "L", "G", "GD", "PTS"}
@@ -86,20 +90,28 @@ public class MainUi {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String leagueId = (String) leagueCombo.getSelectedItem();
+                    String league = (String) leagueCombo.getSelectedItem();
 
-                    switch (leagueId){
-                        case LaLigaID:
-                            break;
-                        case PremierLeagueID:
-                            break;
-                        case SeriaAID:
-                            break;
-                        case BundesligaID:
-                            break;
-                        case Ligue1ID:
-                            break;
-                        default:
+                    try {
+                        switch (league) {
+                            case "LaLiga":
+                                createTable(LaLigaID);
+                                break;
+                            case "Premier League":
+                                createTable(PremierLeagueID);
+                                break;
+                            case "Bundesliga":
+                                createTable(BundesligaID);
+                                break;
+                            case "Serie A":
+                                createTable(SeriaAID);
+                                break;
+                            case "Ligue 1":
+                                createTable(Ligue1ID);
+                                break;
+                        }
+                    } catch (JSONException | IOException | URISyntaxException | InterruptedException ex) {
+                        throw new RuntimeException(ex);
                     }
                 }
             }
