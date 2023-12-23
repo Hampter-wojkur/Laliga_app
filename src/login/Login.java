@@ -1,4 +1,6 @@
 package login;
+import account.Account;
+import account.AccountsParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,6 +39,7 @@ public class Login {
             logger.error(errorMsg);
             return false;
         }
+        AccountsParser.printAllAccounts();
 
         return true;
     }

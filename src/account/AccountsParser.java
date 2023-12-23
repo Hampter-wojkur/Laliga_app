@@ -1,8 +1,7 @@
-package login;
+package account;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.io.File;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,11 +13,11 @@ public class AccountsParser{
     private static BufferedReader reader;
     private static final String path="./src/Data/accounts.sikora";
 
-//    public static void printAllAccounts(){ // debug function
-//        for(Account temp: getAccounts()){
-//            logger.debug(temp.getCredentials()[0]+" "+ temp.getCredentials()[1]);
-//        }
-//    }
+    public static void printAllAccounts(){ // debug function
+        for(Account temp: getAccounts()){
+            logger.debug(temp.getCredentials()[0]+" "+ temp.getCredentials()[1]);
+        }
+    }
 
     public static ArrayList<Account> getAccounts(){
         if(initStreams()) {

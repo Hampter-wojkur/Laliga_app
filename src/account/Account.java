@@ -1,4 +1,4 @@
-package login;
+package account;
 
 public class Account {
     private String username;
