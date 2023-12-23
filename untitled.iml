@@ -7,19 +7,19 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../dependencies/log4j-api-2.22.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../java_dependencies/log4j-api-2.22.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../dependencies/log4j-core-2.22.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../java_dependencies/log4j-core-2.22.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
