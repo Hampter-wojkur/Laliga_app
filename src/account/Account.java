@@ -11,7 +11,7 @@ public class Account {
     }
 
     public String[] getCredentials(){
-        String[] credentials = {this.username,this.password};
+        String[] credentials = {this.id,this.username,this.password};
         return credentials;
     }
 }

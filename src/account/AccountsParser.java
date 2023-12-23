@@ -15,7 +15,8 @@ public class AccountsParser{
 
     public static void printAllAccounts(){ // debug function
         for(Account temp: getAccounts()){
-            logger.debug(temp.getCredentials()[0]+" "+ temp.getCredentials()[1]);
+            String[] credentials = temp.getCredentials();
+            logger.debug(credentials[0]+" "+ credentials[1]+" "+ credentials[2]);
         }
     }
 
