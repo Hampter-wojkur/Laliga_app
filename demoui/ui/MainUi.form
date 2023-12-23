@@ -24,7 +24,11 @@
             </constraints>
             <properties>
               <font name="Droid Sans Mono" size="14"/>
+<<<<<<< HEAD
               <icon value="140.png"/>
+=======
+              <icon value="demoui/laliga.png"/>
+>>>>>>> 7e17f05573d30025f612126703ab82a704164dc4
               <text value="League name"/>
             </properties>
           </component>
