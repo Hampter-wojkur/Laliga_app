@@ -28,9 +28,11 @@ public class MainUi {
     private JTable table;
     private JComboBox leagueCombo;
     private JButton logOutButton;
+    private JLabel leagueLabel;
 
     public MainUi() throws JSONException, IOException, URISyntaxException, InterruptedException {
         createTable("140");
+        leagueLabelChange("LaLiga", LaLigaID);
         createComboBox();
         performLogOutButton();
         comboBoxClicked();
@@ -70,7 +72,11 @@ public class MainUi {
 
     }
 
-
+    private void leagueLabelChange(String leagueName, String leagueId){
+        leagueLabel.setText(leagueName);
+        Icon icon = new ImageIcon(leagueId + ".png");
+        leagueLabel.setIcon(icon);
+    }
     private void performLogOutButton(){
         logOutButton.addActionListener(new ActionListener() {
 
@@ -96,18 +102,23 @@ public class MainUi {
                         switch (league) {
                             case "LaLiga":
                                 createTable(LaLigaID);
+                                leagueLabelChange("LaLiga", LaLigaID);
                                 break;
                             case "Premier League":
                                 createTable(PremierLeagueID);
+                                leagueLabelChange("Premier League", PremierLeagueID);
                                 break;
                             case "Bundesliga":
                                 createTable(BundesligaID);
+                                leagueLabelChange("Bundesliga", BundesligaID);
                                 break;
                             case "Serie A":
                                 createTable(SeriaAID);
+                                leagueLabelChange("Serie A", SeriaAID);
                                 break;
                             case "Ligue 1":
                                 createTable(Ligue1ID);
+                                leagueLabelChange("Ligue 1", Ligue1ID);
                                 break;
                         }
                     } catch (JSONException | IOException | URISyntaxException | InterruptedException ex) {
