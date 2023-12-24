@@ -25,6 +25,11 @@ public class Login {
         logger.info("Set password for " + password);
     }
 
+    public static void resetFields(){
+        username = null;
+        password = null;
+    }
+
     public static String getErrorMessage(){
         return errorMsg;
     }

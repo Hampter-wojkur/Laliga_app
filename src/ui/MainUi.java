@@ -1,6 +1,9 @@
 package ui;
 
 import GUI.StartGUI;
+import login.Login;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 
 import javax.swing.*;
@@ -19,6 +22,7 @@ import java.net.URISyntaxException;
 public class MainUi {
     private JPanel jp;
 
+    private static final Logger logger = LogManager.getLogger(MainUi.class.getName());
     private final String LaLigaID = "140";
     private final String PremierLeagueID = "39";
     private final String SeriaAID = "135";
@@ -73,7 +77,7 @@ public class MainUi {
 
     private void leagueLabelChange(String leagueName, String leagueId){
         leagueLabel.setText(leagueName);
-        Icon icon = new ImageIcon(leagueId + ".png");
+        Icon icon = new ImageIcon("./src/"+leagueId + ".png");
         leagueLabel.setIcon(icon);
     }
     private void performLogOutButton(){
