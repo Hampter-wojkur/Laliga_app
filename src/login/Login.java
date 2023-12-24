@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 
 import org.mindrot.jbcrypt.BCrypt;
-
 public class Login {
     private static String username;
     private static String password;
