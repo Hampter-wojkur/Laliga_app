@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="jp" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="500" height="475"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -78,7 +78,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="username"/>
+              <text value=""/>
             </properties>
           </component>
           <hspacer id="dc6b8">
@@ -98,7 +98,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="password"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
