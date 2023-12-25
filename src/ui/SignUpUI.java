@@ -23,11 +23,14 @@ public class SignUpUI {
     private JLabel passworddLabel;
     private JPanel createAccPanel;
     private JButton createAccButton;
+    private JPanel errorPanel;
+    private JLabel errorLabel;
     private static final Logger logger = LogManager.getLogger(SignUpUI.class.getName());
 
 
     public SignUpUI(){
         performCreateAccButton();
+        createErrorLabel();
     }
 
     public JPanel getRootPanel(){
@@ -54,6 +57,14 @@ public class SignUpUI {
         return new String(repeatPasswordField.getPassword());
     }
 
+    private void createErrorLabel(){
+        errorLabel.setVisible(false);
+    }
+
+    private void handleError(){
+        errorLabel.setVisible(true);
+    }
+
     private void performCreateAccButton(){
         createAccButton.addActionListener(new ActionListener() {
             @Override
@@ -66,6 +77,7 @@ public class SignUpUI {
                 }
                 else {
                     logger.debug("Something went wrong!");
+                    handleError();
                 }
             }
         });
