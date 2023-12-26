@@ -25,6 +25,10 @@ public class LogInUI {
     private JTextField usernameField;
     private JLabel imageLabel;
     private JPasswordField passwordPasswordField;
+    private JLabel errorLabel;
+    private JPanel errorPanel;
+    private JLabel passwdLabel;
+    private JLabel usernameLabel;
 
     private static final Logger logger = LogManager.getLogger(LogInUI.class.getName());
 
@@ -32,6 +36,7 @@ public class LogInUI {
         performListeners();
         Login.initAccounts();
         Login.resetFields();
+        createErrorLabel();
     }
 
 
@@ -68,6 +73,9 @@ public class LogInUI {
         performSignUpButton();
     }
 
+    private void createErrorLabel(){
+        errorLabel.setVisible(false);
+    }
     private String getTextFromUsernameField(){
         return usernameField.getText();
     }
@@ -86,7 +94,7 @@ public class LogInUI {
     }
 
     private void handleError(){
-
+        errorLabel.setVisible(true);
     }
 
     private void performLogInButton() {
@@ -103,7 +111,6 @@ public class LogInUI {
                 else {
                     logger.debug("Wrong Credentials!");
                     handleError();
-                    // add function with handling error setting text in jtextarea
                 }
             }
         });

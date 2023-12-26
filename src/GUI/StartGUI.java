@@ -12,6 +12,7 @@ public class StartGUI {
 
         jf.setContentPane(jp);
         jf.pack();
+        jf.setSize(350, 400);
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
