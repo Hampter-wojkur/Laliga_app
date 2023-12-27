@@ -1,7 +1,6 @@
 package ui;
 
 import GUI.StartGUI;
-import login.Login;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
@@ -18,6 +17,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import Fetcher.Fetcher;
 
 public class MainUi {
     private JPanel jp;
@@ -32,9 +32,15 @@ public class MainUi {
     private JComboBox leagueCombo;
     private JButton logOutButton;
     private JLabel leagueLabel;
+    private JLabel loadingBar;
 
+    private void setLoading(){
+        loadingBar.setText("Loading...");
+    }
     public MainUi() throws JSONException, IOException, URISyntaxException, InterruptedException {
-        createTable("140");
+        // createTable("140");
+        setLoading();
+        new Thread(new Fetcher(table,loadingBar,"140")).start();
         leagueLabelChange("LaLiga", LaLigaID);
         createComboBox();
         performLogOutButton();
@@ -104,27 +110,41 @@ public class MainUi {
                     try {
                         switch (league) {
                             case "LaLiga":
-                                createTable(LaLigaID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,LaLigaID)).start();
+//                                createTable(LaLigaID);
                                 leagueLabelChange("LaLiga", LaLigaID);
                                 break;
                             case "Premier League":
-                                createTable(PremierLeagueID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,PremierLeagueID)).start();
+
+//                                createTable(PremierLeagueID);
                                 leagueLabelChange("Premier League", PremierLeagueID);
                                 break;
                             case "Bundesliga":
-                                createTable(BundesligaID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,BundesligaID)).start();
+
+//                                createTable(BundesligaID);
                                 leagueLabelChange("Bundesliga", BundesligaID);
                                 break;
                             case "Serie A":
-                                createTable(SeriaAID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,SeriaAID)).start();
+
+//                                createTable(SeriaAID);
                                 leagueLabelChange("Serie A", SeriaAID);
                                 break;
                             case "Ligue 1":
-                                createTable(Ligue1ID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,Ligue1ID)).start();
+
+//                                createTable(Ligue1ID);
                                 leagueLabelChange("Ligue 1", Ligue1ID);
                                 break;
                         }
-                    } catch (JSONException | IOException | URISyntaxException | InterruptedException ex) {
+                    } catch (JSONException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
