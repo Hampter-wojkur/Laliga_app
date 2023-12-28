@@ -13,6 +13,7 @@ import javax.swing.table.TableColumnModel;
 import java.util.ArrayList;
 
 public class Fetcher extends Thread {
+    private Boolean refreshAction = false;
     private JTable table;
     private String leagueId;
     private static final Logger logger = LogManager.getLogger(Fetcher.class.getName());
@@ -24,6 +25,13 @@ public class Fetcher extends Thread {
         table = tableProp;
         leagueId = leagueIdProp;
         loadingBar = loadingBarProp;
+    }
+
+    public Fetcher(JTable tableProp,JLabel loadingBarProp, String leagueIdProp,Boolean refresh){
+        table = tableProp;
+        leagueId = leagueIdProp;
+        loadingBar = loadingBarProp;
+        refreshAction = refresh;
     }
 
     private boolean isLeagueDataExist(){
@@ -67,6 +75,16 @@ public class Fetcher extends Thread {
         loadingBar.setText("");
     }
 
+    private void deleteLeagueData(String leagueIdProp) {
+        logger.debug("Deleting League Data");
+        for(int i=0; i<leaguesData.size(); i++){
+            if(leaguesData.get(i).getId().equals(leagueIdProp)){
+                leaguesData.remove(i);
+                return;
+            }
+        }
+    };
+
     @Override
     public void run() {
         if(!isLeagueDataExist()){
@@ -76,6 +94,22 @@ public class Fetcher extends Thread {
 
                 LeagueData leagueData = new LeagueData(leagueId,data);
                 leaguesData.add(leagueData); // adding league to array... later you can fast access this data without sending request
+                setTable(data);
+                logger.debug("Finished fetching everything");
+
+            }
+            catch (Exception e) {
+                logger.error("Error !");
+            }
+        }
+        else if(refreshAction){
+            try {
+                logger.debug("Sending request");
+                String[][] data = API.getTable(leagueId);
+
+                LeagueData leagueData = new LeagueData(leagueId,data);
+                deleteLeagueData(leagueId);
+                leaguesData.add(leagueData);// adding league to array... later you can fast access this data without sending request
                 setTable(data);
                 logger.debug("Finished fetching everything");
 
