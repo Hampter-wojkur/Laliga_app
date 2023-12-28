@@ -6,10 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +13,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+
 import Fetcher.Fetcher;
 
 public class MainUi {
@@ -28,6 +26,8 @@ public class MainUi {
     private final String SeriaAID = "135";
     private final String BundesligaID = "78";
     private final String Ligue1ID = "61";
+
+    private ArrayList<String[]> leaguesData;
     private JTable table;
     private JComboBox leagueCombo;
     private JButton logOutButton;
@@ -48,31 +48,6 @@ public class MainUi {
     }
     public JPanel getRootPanel(){
         return jp;
-    }
-    private void createTable(String leagueId) throws JSONException, IOException, URISyntaxException, InterruptedException {
-
-        String[][] data = API.getTable(leagueId);
-//        Object[][] data = {{"1", "Girona", "17", "14", "2", "1", "41:20", "21", "44"},
-//                {"2", "Real Madrid", "17", "13", "3", "1", "38:11", "27", "42"}};
-        table.setModel(new DefaultTableModel(
-                data,
-                new String[]{"#", "Team", "M", "W", "D", "L", "G", "GD", "PTS"}
-        ));
-        TableColumnModel columns = table.getColumnModel();
-        columns.getColumn(0).setPreferredWidth(30);
-        columns.getColumn(1).setPreferredWidth(200);
-
-        TableCellRenderer rendererFromHeader = table.getTableHeader().getDefaultRenderer();
-        JLabel headerLabel = (JLabel) rendererFromHeader;
-        headerLabel.setHorizontalAlignment(JLabel.CENTER);
-
-        DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
-        centerRender.setHorizontalAlignment(JLabel.CENTER);
-
-        columns.getColumn(0).setCellRenderer(centerRender);
-        for (int i = 2; i < 9; i++){
-            columns.getColumn(i).setCellRenderer(centerRender);
-        }
     }
 
     private void createComboBox(){
@@ -106,41 +81,32 @@ public class MainUi {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String league = (String) leagueCombo.getSelectedItem();
-
+                    logger.debug("Switching league to "+ league);
                     try {
                         switch (league) {
                             case "LaLiga":
                                 setLoading();
                                 new Thread(new Fetcher(table,loadingBar,LaLigaID)).start();
-//                                createTable(LaLigaID);
                                 leagueLabelChange("LaLiga", LaLigaID);
                                 break;
                             case "Premier League":
                                 setLoading();
                                 new Thread(new Fetcher(table,loadingBar,PremierLeagueID)).start();
-
-//                                createTable(PremierLeagueID);
                                 leagueLabelChange("Premier League", PremierLeagueID);
                                 break;
                             case "Bundesliga":
                                 setLoading();
                                 new Thread(new Fetcher(table,loadingBar,BundesligaID)).start();
-
-//                                createTable(BundesligaID);
                                 leagueLabelChange("Bundesliga", BundesligaID);
                                 break;
                             case "Serie A":
                                 setLoading();
                                 new Thread(new Fetcher(table,loadingBar,SeriaAID)).start();
-
-//                                createTable(SeriaAID);
                                 leagueLabelChange("Serie A", SeriaAID);
                                 break;
                             case "Ligue 1":
                                 setLoading();
                                 new Thread(new Fetcher(table,loadingBar,Ligue1ID)).start();
-
-//                                createTable(Ligue1ID);
                                 leagueLabelChange("Ligue 1", Ligue1ID);
                                 break;
                         }
