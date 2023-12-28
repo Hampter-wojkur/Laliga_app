@@ -46,7 +46,8 @@ public class MainUi {
     public MainUi() throws JSONException, IOException, URISyntaxException, InterruptedException {
         // createTable("140");
         setLoading();
-        new Thread(new Fetcher(table,loadingBar,"140")).start();
+        new Thread(new Fetcher(table,loadingBar,LaLigaID)).start();
+        setCurrentLeague(LaLigaID);
         leagueLabelChange("LaLiga", LaLigaID);
         createComboBox();
         performLogOutButton();

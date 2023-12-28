@@ -87,7 +87,23 @@ public class Fetcher extends Thread {
 
     @Override
     public void run() {
-        if(!isLeagueDataExist()){
+        if(refreshAction){
+            try {
+                logger.debug("Sending request to refresh");
+                String[][] data = API.getTable(leagueId);
+                LeagueData leagueData = new LeagueData(leagueId,data);
+                deleteLeagueData(leagueId);
+                leaguesData.add(leagueData);// adding league to array... later you can fast access this data without sending request
+                setTable(data);
+                logger.debug("Finished fetching everything");
+
+            }
+            catch (Exception e) {
+                logger.error(e);
+                logger.error("Error !");
+            }
+        }
+        else if(!isLeagueDataExist()){
             try {
                 logger.debug("Sending request");
                 String[][] data = API.getTable(leagueId);
@@ -99,22 +115,7 @@ public class Fetcher extends Thread {
 
             }
             catch (Exception e) {
-                logger.error("Error !");
-            }
-        }
-        else if(refreshAction){
-            try {
-                logger.debug("Sending request");
-                String[][] data = API.getTable(leagueId);
-
-                LeagueData leagueData = new LeagueData(leagueId,data);
-                deleteLeagueData(leagueId);
-                leaguesData.add(leagueData);// adding league to array... later you can fast access this data without sending request
-                setTable(data);
-                logger.debug("Finished fetching everything");
-
-            }
-            catch (Exception e) {
+                logger.error(e.getMessage());
                 logger.error("Error !");
             }
         }
