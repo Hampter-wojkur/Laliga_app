@@ -25,19 +25,21 @@ public class SignUpUI {
     private JButton createAccButton;
     private JPanel errorPanel;
     private JLabel errorLabel;
+    private JButton backButton;
     private static final Logger logger = LogManager.getLogger(SignUpUI.class.getName());
 
 
     public SignUpUI(){
         performCreateAccButton();
         createErrorLabel();
+        performBackButton();
     }
 
     public JPanel getRootPanel(){
         return jp;
     }
 
-    private void moveToMainGUI(ActionEvent e){
+    private void moveToStartGui(ActionEvent e){
         JComponent comp = (JComponent) e.getSource();
         Window win = SwingUtilities.getWindowAncestor(comp);
         win.dispose();
@@ -65,6 +67,15 @@ public class SignUpUI {
         errorLabel.setVisible(true);
     }
 
+    private void performBackButton(){
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moveToStartGui(e);
+            }
+        });
+    }
+
     private void performCreateAccButton(){
         createAccButton.addActionListener(new ActionListener() {
             @Override
@@ -73,7 +84,7 @@ public class SignUpUI {
                 SignUp.setPassword(getPasswordFromField());
                 SignUp.setConfirmationPassword(getConfirmationPasswordFromField());
                 if(SignUp.processSignUp()){
-                    moveToMainGUI(e);
+                    moveToStartGui(e);
                 }
                 else {
                     logger.debug("Something went wrong!");
