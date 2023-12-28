@@ -1,16 +1,11 @@
 package ui;
 
 import GUI.StartGUI;
-import login.Login;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +13,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+
+import Fetcher.Fetcher;
 
 public class MainUi {
     private JPanel jp;
@@ -28,45 +26,35 @@ public class MainUi {
     private final String SeriaAID = "135";
     private final String BundesligaID = "78";
     private final String Ligue1ID = "61";
+
+    private String currentLeagueId;
+
+    private ArrayList<String[]> leaguesData;
     private JTable table;
     private JComboBox leagueCombo;
     private JButton logOutButton;
     private JLabel leagueLabel;
+    private JLabel loadingBar;
+    private JButton refreshButton;
 
+    private void setCurrentLeague(String leagueId){
+        currentLeagueId = leagueId;
+    }
+    private void setLoading(){
+        loadingBar.setText("Loading...");
+    }
     public MainUi() throws JSONException, IOException, URISyntaxException, InterruptedException {
-        createTable("140");
+        // createTable("140");
+        setLoading();
+        new Thread(new Fetcher(table,loadingBar,"140")).start();
         leagueLabelChange("LaLiga", LaLigaID);
         createComboBox();
         performLogOutButton();
+        performRefreshButton();
         comboBoxClicked();
     }
     public JPanel getRootPanel(){
         return jp;
-    }
-    private void createTable(String leagueId) throws JSONException, IOException, URISyntaxException, InterruptedException {
-
-        String[][] data = API.getTable(leagueId);
-//        Object[][] data = {{"1", "Girona", "17", "14", "2", "1", "41:20", "21", "44"},
-//                {"2", "Real Madrid", "17", "13", "3", "1", "38:11", "27", "42"}};
-        table.setModel(new DefaultTableModel(
-                data,
-                new String[]{"#", "Team", "M", "W", "D", "L", "G", "GD", "PTS"}
-        ));
-        TableColumnModel columns = table.getColumnModel();
-        columns.getColumn(0).setPreferredWidth(30);
-        columns.getColumn(1).setPreferredWidth(200);
-
-        TableCellRenderer rendererFromHeader = table.getTableHeader().getDefaultRenderer();
-        JLabel headerLabel = (JLabel) rendererFromHeader;
-        headerLabel.setHorizontalAlignment(JLabel.CENTER);
-
-        DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
-        centerRender.setHorizontalAlignment(JLabel.CENTER);
-
-        columns.getColumn(0).setCellRenderer(centerRender);
-        for (int i = 2; i < 9; i++){
-            columns.getColumn(i).setCellRenderer(centerRender);
-        }
     }
 
     private void createComboBox(){
@@ -79,6 +67,15 @@ public class MainUi {
         leagueLabel.setText(leagueName);
         Icon icon = new ImageIcon("./src/"+leagueId + ".png");
         leagueLabel.setIcon(icon);
+    }
+
+    private void performRefreshButton(){
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                refreshLeague();
+            }
+        });
     }
     private void performLogOutButton(){
         logOutButton.addActionListener(new ActionListener() {
@@ -94,37 +91,52 @@ public class MainUi {
         });
     }
 
+    private void refreshLeague(){
+        setLoading();
+        new Thread(new Fetcher(table,loadingBar,currentLeagueId,true)).start();
+    }
+
     private void comboBoxClicked(){
         leagueCombo.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String league = (String) leagueCombo.getSelectedItem();
-
+                    logger.debug("Switching league to "+ league);
                     try {
                         switch (league) {
                             case "LaLiga":
-                                createTable(LaLigaID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,LaLigaID)).start();
+                                setCurrentLeague(LaLigaID);
                                 leagueLabelChange("LaLiga", LaLigaID);
                                 break;
                             case "Premier League":
-                                createTable(PremierLeagueID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,PremierLeagueID)).start();
+                                setCurrentLeague(PremierLeagueID);
                                 leagueLabelChange("Premier League", PremierLeagueID);
                                 break;
                             case "Bundesliga":
-                                createTable(BundesligaID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,BundesligaID)).start();
+                                setCurrentLeague(BundesligaID);
                                 leagueLabelChange("Bundesliga", BundesligaID);
                                 break;
                             case "Serie A":
-                                createTable(SeriaAID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,SeriaAID)).start();
+                                setCurrentLeague(SeriaAID);
                                 leagueLabelChange("Serie A", SeriaAID);
                                 break;
                             case "Ligue 1":
-                                createTable(Ligue1ID);
+                                setLoading();
+                                new Thread(new Fetcher(table,loadingBar,Ligue1ID)).start();
+                                setCurrentLeague(Ligue1ID);
                                 leagueLabelChange("Ligue 1", Ligue1ID);
                                 break;
                         }
-                    } catch (JSONException | IOException | URISyntaxException | InterruptedException ex) {
+                    } catch (JSONException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
