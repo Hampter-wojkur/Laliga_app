@@ -17,7 +17,6 @@ public class StartGUI {
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

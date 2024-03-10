@@ -24,7 +24,7 @@ public class API {
         String url = "https://v3.football.api-sports.io/standings";
         String season = Integer.toString(Year.now().getValue());
 
-        URI uri = new URI(url + "?league=" + leagueId + "&season=" + season);
+        URI uri = new URI(url + "?league=" + leagueId + "&season=" + "2023");
 
         HttpRequest request = HttpRequest.newBuilder()
                 .header("x-rapidapi-key", "2ed2eab0980df47f8bd6dbc9d764527d")
