@@ -32,13 +32,32 @@
 
 
 ## Screenshots
-![Main page](./table_screen.png)
-![Second Main_page](./second_table.png)<br>
-![Login page](./login_screen.png)<br>
-![Signup page](./singup_screen.png)<br>
-![Logs](./logs.png)<br>
+<table border="1" align="center">
+  <tr>
+    <td><img src="./table_screen.png" alt="Table view 1" width="600" height="700"></td>
+    <td><img src="./second_table.png" alt="Table view 2" width="600" height="700"></td>
+  </tr>
+  <tr>
+    <td align="center">Table view 1</td>
+    <td align="center">Table view 2</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./login_screen.png" alt="Login page" width="300" height="300" ></td>
+    <td align="center"><img src="./singup_screen.png" alt="Sign up page" width="300" height="300" ></td>
 
-
+  </tr>
+  <tr>
+    <td align="center">Login page</td>
+    <td align="center">Sign up page</td>
+    
+  </tr>
+  <tr>
+      <td><img src="./logs.png" alt="Logs" width="500" height="200"></td>
+  </tr>
+  <tr>
+    <td align="center">Logs</td>
+  </tr>
+</table>
 
 
 
