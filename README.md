@@ -43,7 +43,8 @@
 
 
 ## Project Status
-Project is: _complete_ ✅
+Project is: _complete_ ✅ <br>
+Graded with a score of 5.0
 
 
 ## Room for Improvement
