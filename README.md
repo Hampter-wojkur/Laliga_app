@@ -1,5 +1,5 @@
 # Top 5 football leagues GUI App
-> A GUI App buillt with Java 21 based on data collected from external [API-FOOTBALL](https://www.api-football.com). It allows you to track live standings from top 5 most popular football leagues in the world. 
+A GUI App buillt with Java 21 based on data collected from external [API-FOOTBALL](https://www.api-football.com). It allows you to track live standings from top 5 most popular football leagues in the world. 
 
 ## Table of Contents
 * [General Info](#general-information)
